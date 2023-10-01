@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'audio_controller.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => AudioController(),
+      child: const MainApp(),
+    ));
 }
 
 class MainApp extends StatelessWidget {
@@ -9,7 +15,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    var isSampling = context.watch<AudioController>().isSampling;
+    var icon = isSampling? Icons.stop : Icons.play_arrow;
+    var amplitude = context.select<AudioController, String>((c) => c.maxAmplitude.toString());
+
+    return MaterialApp(
       home: Scaffold(
         body: SizedBox(
           width: double.infinity,
@@ -18,8 +28,8 @@ class MainApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              IconButton(icon: Icon(Icons.play_arrow), iconSize: 100.0, onPressed: null,),
-              Text("amplitude", style: TextStyle(fontSize: 50.0),),
+              IconButton(icon: Icon(icon), iconSize: 100.0, onPressed: context.read<AudioController>().toggleSampling,),
+              Text(amplitude, style: const TextStyle(fontSize: 50.0),),
             ],
           ),
         ),
