@@ -17,7 +17,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     var isSampling = context.watch<AudioController>().isSampling;
     var icon = isSampling? Icons.stop : Icons.play_arrow;
-    var amplitude = context.select<AudioController, String>((c) => c.maxAmplitude.toString());
+    var firstByte = context.select<AudioController, String>((c) => c.audioData.toString());
 
     return MaterialApp(
       home: Scaffold(
@@ -29,7 +29,7 @@ class MainApp extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconButton(icon: Icon(icon), iconSize: 100.0, onPressed: context.read<AudioController>().toggleSampling,),
-              Text(amplitude, style: const TextStyle(fontSize: 50.0),),
+              Text(firstByte, style: const TextStyle(fontSize: 50.0),),
             ],
           ),
         ),

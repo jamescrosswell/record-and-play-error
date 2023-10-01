@@ -6,7 +6,7 @@ import 'audio_service.dart';
 class AudioController with ChangeNotifier {
   AudioController()
   {
-    _audioService = AudioService(setMaxAmplitude);
+    _audioService = AudioService(onAudio);
   }
 
   // Make SettingsService a private variable so it is not used directly.
@@ -14,9 +14,9 @@ class AudioController with ChangeNotifier {
 
   // Make ThemeMode a private variable so it is not updated directly without
   // also persisting the changes with the SettingsService.
-  int maxAmplitude = 0;
-  void setMaxAmplitude(int vale){
-    maxAmplitude = vale;
+  int audioData = 0;
+  void onAudio(int vale){
+    audioData = vale;
     notifyListeners();
   }
 
