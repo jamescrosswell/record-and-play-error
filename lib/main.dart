@@ -11,8 +11,17 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+        body: SizedBox(
+          width: double.infinity,
+          height: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(icon: Icon(Icons.play_arrow), iconSize: 100.0, onPressed: null,),
+              Text("amplitude", style: TextStyle(fontSize: 50.0),),
+            ],
+          ),
         ),
       ),
     );
