@@ -12,11 +12,14 @@ void main() {
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
+  static const double iconSize = 120.0;
 
   @override
   Widget build(BuildContext context) {
+    var isPlaying = context.watch<AudioController>().isPlaying();
     var isSampling = context.watch<AudioController>().isSampling;
-    var icon = isSampling? Icons.stop : Icons.play_arrow;
+    var playIcon = isPlaying? Icons.stop : Icons.play_arrow;
+    var recordIcon = isSampling? Icons.stop : Icons.circle;
     var firstByte = context.select<AudioController, String>((c) => c.audioData.toString());
 
     return MaterialApp(
@@ -28,7 +31,13 @@ class MainApp extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              IconButton(icon: Icon(icon), iconSize: 100.0, onPressed: context.read<AudioController>().toggleSampling,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconButton(icon: Icon(playIcon), iconSize: iconSize, onPressed: context.read<AudioController>().togglePlaying,),
+                  IconButton(icon: Icon(recordIcon), iconSize: iconSize, color: Colors.red, onPressed: context.read<AudioController>().toggleSampling,),
+                ],
+              ),
               Text(firstByte, style: const TextStyle(fontSize: 50.0),),
             ],
           ),

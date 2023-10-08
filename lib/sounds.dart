@@ -1,8 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 
-class AppSounds extends Object {
-  AppSounds([AudioPlayer? audioPlayer]) {
+class SoundService extends Object {
+  SoundService([AudioPlayer? audioPlayer]) {
     _audioPlayer = audioPlayer ?? AudioPlayer();
   }
   late AudioPlayer _audioPlayer;
